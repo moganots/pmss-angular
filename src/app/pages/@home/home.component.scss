@@ -1,0 +1,23 @@
+@import '../../../assets/scss/colors.scss';
+
+.example-card {
+    background-color: whitesmoke;
+    max-width: 400px;
+}
+
+mat-card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+button {
+    background: $color-orange-red;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    box-shadow: none;
+    display: inline-block;
+    height: auto;
+    outline: none !important;
+    position: relative;
+    text-align: center;
+}

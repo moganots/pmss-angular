@@ -1,0 +1,42 @@
+@import '../../../assets/scss/colors.scss';
+
+td {
+    div {
+        &.status {
+            border-radius: 8px;
+            height: auto;
+            padding: 1em;
+            width: 0.5rem;
+            &.created {
+                background-color: $color-status-created;
+            }
+            &.notstarted, &.not-started {
+                background-color: $color-status-not-started;
+            }
+            &.inactive, &.onhold, &.on-hold, &.blocked {
+                background-color: $color-status-on-hold;
+            }
+            &.initiated, &.started {
+                background-color: $color-status-started;
+            }
+            &.inprogress, &.in-progress {
+                background-color: $color-status-in-progress;
+            }
+            &.cancelled {
+                background-color: $color-status-cancelled;
+            }
+            &.descoped, &.de-scoped {
+                background-color: $color-status-de-scoped;
+            }
+            &.restarted, &.re-started {
+                background-color: $color-status-re-started;
+            }
+            &.completed {
+                background-color: $color-status-completed;
+            }
+            &.done {
+                background-color: $color-status-done;
+            }
+        }
+    }
+}

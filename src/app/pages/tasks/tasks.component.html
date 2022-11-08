@@ -1,0 +1,91 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div class="header-body">
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">{{tableHeading}}</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Assignee</th>
+                                <th scope="col">Date Started</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let task of tasks">
+                                <td>{{task?.name}}</td>
+                                <td>{{task?.description}}</td>
+                                <td>{{task?.project?.name}}</td>
+                                <td>{{task?.assignee?.emailAddress}}</td>
+                                <td>{{task?.dateStarted || task?.dateCreated}}</td>
+                                <td>
+                                    <div class="status {{getStatusCssColor(task)}}"
+                                        title="{{task?.status?.value}}" tooltip="{{task?.status?.value}}"></div>
+                                </td>
+                                <td class="text-right">
+                                    <div ngbDropdown placement="bottom-right">
+                                        <button mat-icon-button class="btn btn-white btn-round btn-just-icon"
+                                            type="button" title="Edit" (click)="onButtonClickEdit(task)"><span
+                                                class="material-symbols-outlined">
+                                                edit
+                                            </span></button>
+                                        <button mat-icon-button class="btn btn-white btn-round btn-just-icon"
+                                            type="button" title="Delete" (click)="onButtonClickDelete(task)"><span
+                                                class="material-symbols-outlined">
+                                                delete_sweep
+                                            </span></button>
+
+                                        <!-- <a class="btn btn-sm btn-icon-only text-light" ngbDropdownToggle>
+                                            <span class="material-symbols-outlined">
+                                                menu_open
+                                            </span>
+                                        </a>
+                                        <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="javascript:void(0)"><span
+                                                    class="material-symbols-outlined">
+                                                    edit
+                                                </span>Edit</a>
+                                            <a class="dropdown-item" href="javascript:void(0)"><span
+                                                    class="material-symbols-outlined">
+                                                    delete_sweep
+                                                </span>Delete</a>
+                                        </div> -->
+                                    </div>
+                                </td>
+                                <!--
+                                    assigneeId
+                                    createdBy
+                                    dateCreated
+                                    description
+                                    id
+                                    name
+                                    parentTaskId
+                                    priorityId
+                                    projectId
+                                    statusId
+                                    taskTypeId
+                                -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

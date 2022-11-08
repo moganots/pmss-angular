@@ -1,0 +1,15 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+        <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10">
+            <mat-card class="example-card" fxFlex.sm="0 1 calc(50%-10px)" fxFlex.md="0 1 calc(33%-10px)"
+                fxFlex.gt-md="0 1 calc(25%-10px)" *ngFor="let card of cards">
+                <mat-card-title>{{card.title}}</mat-card-title>
+                <mat-card-content>{{card.description}}</mat-card-content>
+                <mat-divider inset></mat-divider>
+                <mat-card-actions align="end">
+                    <button mat-raised-button mat-button I (click)="cardNavigateTo(card.command)">EXLPORE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
