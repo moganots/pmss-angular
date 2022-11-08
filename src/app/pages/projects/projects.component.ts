@@ -28,7 +28,7 @@ export class ProjectsComponent implements OnInit {
       currency: 'ZAR',
     }).format(project?.annualBudget || project?.annualTarget);
   }
-  getProjectStatusCssColor(project: Project) {
+  getStatusCssColor(project: Project) {
     return project?.status?.value?.toLocaleLowerCase()?.replace(` `, ``);
   }
   onButtonClickEdit = (project: Project) => {

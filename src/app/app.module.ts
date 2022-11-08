@@ -22,8 +22,8 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { CommonComponent } from './@shared/components/common/common.component';
 import { AlertComponent } from './@shared/components/alert/alert.component';
-import { CreateEditProjectComponent } from './pages/projects/components/create-edit-project/create-edit-project.component';
-import { CreateEditTaskComponent } from './pages/tasks/components/create-edit-task/create-edit-task.component';
+import { DialogCreateEditDeleteTaskComponent } from './pages/tasks/components/dialogs/dialog-create-edit-delete-task/dialog-create-edit-delete-task.component';
+import { DialogCreateEditDeleteProjectComponent } from './pages/projects/components/dialogs/dialog-create-edit-delete-project/dialog-create-edit-delete-project.component';
 
 @NgModule({
   imports: [
@@ -45,9 +45,7 @@ import { CreateEditTaskComponent } from './pages/tasks/components/create-edit-ta
     AdminLayoutComponent,
     AuthLayoutComponent,
     CommonComponent,
-    AlertComponent,
-    CreateEditProjectComponent,
-    CreateEditTaskComponent
+    AlertComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
