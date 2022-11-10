@@ -30,20 +30,20 @@ export class TasksComponent implements OnInit {
   onButtonClickEdit = (task: Task) => {
     const height = '36vh';
     const width = '18vw';
-    const top = `0`;// '7.2vh';
+    const top = '30px'; //7.2vh';
     const left = '25vw';
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.data = task || {};
     dialogConfig.enterAnimationDuration = '3000ms';
     dialogConfig.exitAnimationDuration = '1500ms';
-    dialogConfig.height = height;
+    // dialogConfig.height = height;
     // dialogConfig.maxHeight = '95%';
-    dialogConfig.width = width;
+    // dialogConfig.width = width;
     // dialogConfig.panelClass = 'dialog-container';
     dialogConfig.position = {
-      left,
-      top,
+      /* left,
+      top, */
     };
     const matDialogSub = this.matDialog
       .open(DialogCreateEditDeleteTaskComponent, dialogConfig)

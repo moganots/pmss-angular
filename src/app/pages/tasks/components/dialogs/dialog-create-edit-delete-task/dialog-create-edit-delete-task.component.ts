@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-create-edit-delete-task',
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog-create-edit-delete-task.component.scss']
 })
 export class DialogCreateEditDeleteTaskComponent implements OnInit {
+  @Input() pageName: string;
+  @Input() pageIcon: string;
+  @Input() pageTitle: string;
+  @Input() pageSubTitle: string;
+  @Input() pageHeading: string;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DialogCreateEditDeleteTaskComponent>,
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.dialogRef.updatePosition({
+      top: `7vh`,
+      left: `40px`
+    });
+  }
+
+  onButtonClickCloseDialog = () => {
+
   }
 
 }

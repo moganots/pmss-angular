@@ -1,0 +1,81 @@
+@import "./../../../../../../assets//scss/colors.scss";
+
+.dialog {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.header {
+    background: transparent;
+    background: $color-heading-background-secondary;
+    border-radius: 6px;
+    color: $color-body-background-main;
+    height: 12vh;
+    position: relative;
+
+    i,
+    h4,
+    span {
+        display: inline-block;
+        margin: 0 0 1em 0.1em !important;
+        padding: 0 0 0 0 !important;
+        position: relative;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    i {
+        height: auto;
+        font-size: 3em;
+        padding: 0.35em 0 0 0 !important;
+    }
+
+    h4 {
+        color: $color-body-background-main;
+        // font-family: $OpenSans_Bold;
+        font-size: 1.55em;
+        overflow: hidden;
+        padding: 0.1em 0 0 0.5em !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    p {
+        color: $color-body-background-main;
+        // font-family: $OpenSans_Bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.category {
+            font-size: 1.05em;
+            left: 0%;
+            margin: 3.5em 0 0 5em !important;
+            padding: 0 0 0 0 !important;
+            position: absolute;
+        }
+    }
+
+    span {
+        float: right;
+        padding: 0.9em 0 0 0 !important;
+
+        button {
+            background-color: $white;
+            margin: 0 0 0 0 !important;
+            padding: 0 0 0 0 !important;
+
+            i {
+                display: inline-block;
+                height: auto;
+                font-size: 0.85em;
+                margin: 0 0 0 0 !important;
+                padding: 0 0 0.2em 0.5em !important;
+                text-align: left;
+                vertical-align: middle;
+            }
+        }
+    }
+}
