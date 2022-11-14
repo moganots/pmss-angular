@@ -1,10 +1,17 @@
 @import "./../../../../../../assets//scss/colors.scss";
 
-.dialog {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 40px;
+.dialog-panel-class .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+}
+
+.dialog-panel-class .mat-dialog-content {
+    margin: 0;
+}
+
+.dialog-panel-class .mat-dialog-actions {
+    margin-bottom: 0px !important;
+    padding: 20px 30px;
 }
 
 .header {
@@ -35,6 +42,8 @@
     h4 {
         color: $color-body-background-main;
         // font-family: $OpenSans_Bold;
+        font-family: sans-serif;
+        font-weight: bold;
         font-size: 1.55em;
         overflow: hidden;
         padding: 0.1em 0 0 0.5em !important;
@@ -45,6 +54,8 @@
     p {
         color: $color-body-background-main;
         // font-family: $OpenSans_Bold;
+        font-family: sans-serif;
+        font-weight: bold;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
