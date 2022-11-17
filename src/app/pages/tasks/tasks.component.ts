@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Task } from 'src/app/@shared/domain-models/task/task';
 import { AlertService } from 'src/app/@shared/services/alert-service/alert.service';
-import { DialogCreateEditDeleteTaskComponent } from './components/dialogs/dialog-create-edit-delete-task/dialog-create-edit-delete-task.component';
 import { TasksConfiguration } from './configuration/tasks-configuration';
 import { TasksService } from './service/tasks.service';
 
@@ -17,7 +16,7 @@ export class TasksComponent implements OnInit {
   @Input() tableHeading = TasksConfiguration.tableHeading;
   tasks: Task[] = [];
 
-  constructor(private tasksService: TasksService, private alertService: AlertService, private matDialog: MatDialog) { }
+  constructor(private tasksService: TasksService, private alertService: AlertService, private router: Router) { }
 
   ngOnInit(): void {
     this.tasksService.getAll().subscribe((tasks) => {
@@ -28,33 +27,7 @@ export class TasksComponent implements OnInit {
     return task?.status?.value?.toLocaleLowerCase()?.replace(` `, ``);
   }
   onButtonClickEdit = (task: Task) => {
-    const height = '36vh';
-    const width = '18vw';
-    const top = '7.2vh';
-    const left = '25vw';
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = task || {};
-    dialogConfig.enterAnimationDuration = '3000ms';
-    dialogConfig.exitAnimationDuration = '1500ms';
-    // dialogConfig.height = height;
-    // dialogConfig.maxHeight = '95%';
-    // dialogConfig.width = width;
-    dialogConfig.panelClass = 'dialog-container';
-    dialogConfig.position = {
-      /* left, */
-      top,
-    };
-    const matDialogSub = this.matDialog
-      .open(DialogCreateEditDeleteTaskComponent, dialogConfig)
-      .afterClosed()
-      .subscribe({
-        next: (result) => { },
-        complete: () => { },
-        error: (error) => {
-          this.alertService.error(error.message || error);
-        },
-      });
+    this.router.navigate([[TasksConfiguration.pageRoute, `task`, 'edit', task?.id].join(`/`)]);
   }
   onButtonClickDelete = (task: Task) => {
     this.tasksService.delete(task?.id).then((result) => {

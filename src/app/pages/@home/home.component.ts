@@ -8,6 +8,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   cards = [{
+    icon: `empty_dashboard`,
+    title: `Dashboard`,
+    description: `View performance and statistics`,
+    command: `dashboard`
+  }, {
     icon: `hub`,
     title: `Projects`,
     description: `Manage (view, create, update and delete) projects`,
@@ -22,11 +27,6 @@ export class HomeComponent implements OnInit {
     title: `User Profile`,
     description: `Manage user profile`,
     command: `user-profile`
-  }, {
-    icon: `empty_dashboard`,
-    title: `Dashboard`,
-    description: `View performance and statistics`,
-    command: `dashboard`
   }];
 
   constructor(private router: Router) { }
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cardNavigateTo(command){
+  cardNavigateTo(command) {
     this.router.navigate([command]);
   }
 

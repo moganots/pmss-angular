@@ -374,10 +374,10 @@ mat-tab {
       border: 1px solid $color-action-create;
     }
     &.tentative {
-      border: 1px solid $pmss-color-action-review;
+      border: 1px solid $color-action-review;
     }
     &.decline {
-      border: 1px solid $pmss-color-action-delete;
+      border: 1px solid $color-action-delete;
     }
   }
   i,
@@ -394,10 +394,10 @@ mat-tab {
       color: $color-action-create;
     }
     &.tentative {
-      color: $pmss-color-action-review;
+      color: $color-action-review;
     }
     &.decline {
-      color: $pmss-color-action-delete;
+      color: $color-action-delete;
     }
   }
 }
