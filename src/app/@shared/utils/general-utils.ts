@@ -1,34 +1,28 @@
 import { DataColumn } from "../domain-models/data-column";
 
-declare global {
-    class GeneralUtils {
-        static columnNameWithoutId: (column: DataColumn) => string;
-        static formatDisplayColumnName: (column: DataColumn) => any;
-        static generateRandomString: (length?: number) => string;
+export class GeneralUtils {
+  static columnNameWithoutId = (column: DataColumn) => {
+    const columnName = column?.name?.toLocaleLowerCase().trim();
+    if ([`_id`, `userid`].includes(columnName)) {
+      return columnName;
     }
-}
-
-GeneralUtils.columnNameWithoutId = (column: DataColumn) => {
-    const columnName = column?.name;
-    if ([`_id`, `userid`].includes(columnName.toLocaleLowerCaseWithTrimAll())) {
-        return columnName;
-    }
-    return columnName.toLocaleLowerCaseWithTrimAll().endsWith(`id`)
-        ? columnName.substring(0, columnName.length - 2)
-        : columnName;
-}
-
-GeneralUtils.formatDisplayColumnName = (column: DataColumn) => {
-    const columnName = GeneralUtils.columnNameWithoutId(column);
+    return columnName.endsWith(`id`)
+      ? columnName.substring(0, columnName.length - 2)
+      : columnName;
+  }
+  static formatDisplayColumnName = (column: DataColumn) => {
+    const columnName = this.columnNameWithoutId(column);
     switch (columnName) {
-        case `EmployeeClientSupplier`:
-            return columnName.splitCamelCase().split(' ').join(' / ');
-        default:
-            return columnName.splitCamelCase().split(' ').join(' ').trim();
+      case `EmployeeClientSupplier`:
+        return this.splitCamelCase(columnName).split(' ').join(' / ');
+      default:
+        return this.splitCamelCase(columnName).split(' ').join(' ').trim();
     }
-}
-
-GeneralUtils.generateRandomString = (length = 256) => {
+  }
+  static splitCamelCase = (str: string) => {
+    return (str || ``).trim().replace(/([a-z])([A-Z])/g, '$1 $2');
+  }
+  static generateRandomString = (length = 256) => {
     const result = [];
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -40,5 +34,4 @@ GeneralUtils.generateRandomString = (length = 256) => {
     }
     return result.join(``);
   }
-
-export { }
+}

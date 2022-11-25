@@ -63,6 +63,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -121,7 +122,8 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatFormFieldModule
   ],
   declarations: [
     HomeComponent,
@@ -137,6 +139,9 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
   entryComponents: [
     DialogCreateEditDeleteProjectComponent,
     DialogCreateEditDeleteTaskComponent
+  ],
+  providers: [
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
   ]
 })
 

@@ -10,8 +10,10 @@ declare global {
         toLocaleLowerCaseWithTrimEnd(): string;
         padRight(padding: string): string;
         padLeft(padding: string): string;
+        capitalizeFirstLetter(): string;
         splitCamelCase(): string;
         splitCamelCaseAndSpecialCharacters(): string;
+        splitCamelCaseAndCapitalizeFirstLetter(): string;
     }
 }
 
@@ -45,11 +47,17 @@ String.prototype.padRight = (padding: string = `0`) => {
 String.prototype.padLeft = (padding: string = `0`) => {
     return (String(this) || ``).padStart(padding.length, padding);
 }
+String.prototype.capitalizeFirstLetter = () => {
+    return [(String(this) || ``).charAt(0).toLocaleUpperCase(), (String(this) || ``).slice(1)].join();
+}
 String.prototype.splitCamelCase = () => {
     return (String(this) || ``).trim().replace(/([a-z])([A-Z])/g, '$1 $2');
 }
 String.prototype.splitCamelCaseAndSpecialCharacters = () => {
     return (String(this) || ``).trim().replace(/([a-z])([A-Z])([_-])/g, '$1 $2 $3');
+}
+String.prototype.splitCamelCaseAndCapitalizeFirstLetter = () => {
+    return (String(this) || ``).splitCamelCase().capitalizeFirstLetter();
 }
 
 export { }

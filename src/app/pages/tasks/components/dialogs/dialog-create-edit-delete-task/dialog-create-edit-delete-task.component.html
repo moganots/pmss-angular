@@ -14,29 +14,155 @@
                     <h3 class="mb-0">{{pageHeading}}</h3>
                     <h5 class="mb-0">{{task?.id}} / {{task?.name}}</h5>
                 </div>
-                <div class="card">
-                    <form role="form" [formGroup]="frmCreateEdit">
-                        <div class="text-right">
-                            <button type="button" class="btn btn-primary my-4"
-                                [disabled]="frmCreateEdit.pristine || frmCreateEdit.invalid" (click)="onSubmit()"
-                                title="{{btnTitle}}">{{btnTitle}}</button>
+                <div class="card-body">
+                    <form [formGroup]="formGroup">
+                        <div *ngFor="let column of useColumns; let id = index" class="container {{ columnsCssClass }}"
+                            formGroupName="formFields" [hidden]="isFieldHidden(column)">
+                            <span [ngSwitch]="column?.controlType">
+                                <span *ngSwitchCase="'break'"><br /></span>
+                                <span *ngSwitchCase="'checkbox'">
+                                    <mat-checkbox id="{{ column?.name }}" name="{{ column?.name }}"
+                                        formControlName="{{ column?.name }}"
+                                        [formControl]="formGroupFields?.controls[column?.name]"
+                                        [(ngModel)]="task[column?.name]" class=""
+                                        (change)="onValueChanged($event)">
+                                        <p class="column displayName">
+                                            {{ column?.displayName }}
+                                        </p>
+                                    </mat-checkbox>
+                                </span>
+                                <span *ngSwitchCase="'datetimepicker'">
+                                    <mat-form-field>
+                                        <input matInput type="text" id="{{ column?.name }}" name="{{ column?.name }}"
+                                            placeholder="{{ column?.displayName }}" formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class=""
+                                            [ngxMatDatetimePicker]="datetimepicker"
+                                            (dateInput)="onValueChanged($event)"
+                                            (dateChange)="onValueChanged($event)" />
+                                        <mat-datepicker-toggle matSuffix [for]="datetimepicker"></mat-datepicker-toggle>
+                                        <ngx-mat-datetime-picker #datetimepicker [enableMeridian]="true">
+                                        </ngx-mat-datetime-picker>
+                                    </mat-form-field>
+                                </span>
+                                <span *ngSwitchCase="'icon'"><i></i></span>
+                                <span *ngSwitchCase="'image'"><img /></span>
+                                <span *ngSwitchCase="'newline'"><br /></span>
+                                <span *ngSwitchCase="'password'">
+                                    <mat-form-field>
+                                        <input matInput type="password" id="{{ column?.name }}"
+                                            name="{{ column?.name }}" placeholder="{{ column?.displayName }}"
+                                            formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class=""
+                                            (change)="onValueChanged($event)" (keyup)="onValueChanged($event)" />
+                                        <!-- <mat-icon> visibility </mat-icon> -->
+                                    </mat-form-field>
+                                </span>
+                                <span *ngSwitchCase="'section'"><br /></span>
+                                <span *ngSwitchCase="'textarea'">
+                                    {{ column?.displayName }}
+                                    <br />
+                                    <br />
+                                    <div id="{{ column?.name }}" name="{{ column?.name }}" contenteditable="true"
+                                        class="description" [textContent]="entity[column?.name]"
+                                        (change)="onValueChanged($event)" (keyup)="onValueChanged($event)">
+                                    </div>
+                                    <br />
+                                    <br />
+                                </span>
+                                <span *ngSwitchCase="'textbox'">
+                                    <mat-form-field>
+                                        <input matInput type="text" id="{{ column?.name }}" name="{{ column?.name }}"
+                                            placeholder="{{ column?.displayName }}" formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class=""
+                                            (change)="onValueChanged($event)" (keyup)="onValueChanged($event)" />
+                                    </mat-form-field>
+                                </span>
+                                <span *ngSwitchCase="'timepicker'">
+                                    <mat-form-field>
+                                        <input matInput type="text" id="{{ column?.name }}" name="{{ column?.name }}"
+                                            placeholder="{{ column?.displayName }}" formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class="" [ngxMatTimepicker]="timePicker"
+                                            (dateInput)="onTimePickerChanged($event)"
+                                            (dateChange)="onTimePickerChanged($event)" format="24" />
+                                        <mat-icon matSuffix (click)="timePicker.open()">
+                                            watch_later
+                                        </mat-icon>
+                                    </mat-form-field>
+                                    <ngx-mat-timepicker color="accent" #timePicker></ngx-mat-timepicker>
+                                </span>
+                                <span *ngSwitchCase="'number'">
+                                    <mat-form-field>
+                                        <input matInput type="number" id="{{ column?.name }}" name="{{ column?.name }}"
+                                            placeholder="{{ column?.displayName }}" formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class=""
+                                            (change)="onValueChanged($event)" (keyup)="onValueChanged($event)" />
+                                    </mat-form-field>
+                                </span>
+                                <span *ngSwitchCase="'select'">
+                                    <mat-form-field>
+                                        <input matInput type="text" id="{{ column?.name }}" name="{{ column?.name }}"
+                                            placeholder="{{ column?.displayName }}" formControlName="{{ column?.name }}"
+                                            [formControl]="formGroupFields?.controls[column?.name]"
+                                            [(ngModel)]="task[column?.name]" class="" [matAutocomplete]="auto" />
+                                        <mat-autocomplete id="{{ column?.name }}" #auto="matAutocomplete"
+                                            [displayWith]="displayWithColumnFilterByIdFn(column)">
+                                            <mat-option id="{{ column?.name }}"
+                                                *ngFor="let value of column?.filteredLookupValues | async"
+                                                [value]="value?.id" (onSelectionChange)="onValueChanged($event)"
+                                                matSort>
+                                                <i [ngStyle]="{
+                                        display:
+                                          value?.icon === null || value?.icon === undefined
+                                            ? 'none'
+                                            : 'inline'
+                                      }" class="material-icons icon-mat-option rounded {{
+                                        value?.cssClassCategory
+                                      }} {{ value?.cssClass }}" [title]="value?.tooltip || value?.title">{{ value?.icon
+                                                    }}</i>
+                                                <img [ngStyle]="{
+                                        display:
+                                          value?.image === null || value?.image === undefined
+                                            ? 'none'
+                                            : 'inline'
+                                      }" class="img-mat-option img23 rounded"
+                                                    [title]="value?.displayName || value?.displayValue"
+                                                    src="{{ value?.image }}" />
+                                                {{ value?.displayName || value?.displayValue }}
+                                                <p class="column displayValue">
+                                                    {{ value?.displayValue }}
+                                                </p>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </span>
+                                <!-- <span *ngSwitchCase="'lookupIcon'"><input type="text" /></span>
+                            <span *ngSwitchCase="'lookupImage'"><input type="text" /></span>
+                            <span *ngSwitchCase="'lookupValue'"><input type="text" /></span>
+                            <span *ngSwitchCase="'referenceValue'"><input type="text" /></span> -->
+                            </span>
                         </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-alternative">
-                                <input class="form-control" placeholder="id" type="number" formControlName="id"
-                                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-alternative">
-                                <input class="form-control" placeholder="Name" type="text" formControlName="name"
-                                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                            </div>
-                        </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!--
+    id
+    name
+    description
+    taskTypeId
+    projectId
+    parentTaskId
+    priorityId
+    statusId
+    assigneeId
+    createdBy
+    dateCreated
+-->
